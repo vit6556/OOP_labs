@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "tractrix.h"
+#include "include/tractrix.h"
 
 #define square_radians square*M_PI/180
 
