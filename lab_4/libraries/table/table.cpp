@@ -80,30 +80,35 @@ void Table::update_status(std::string address, bool status) {
 
 
 void Table::show_all_shelters() {
+    std::cout << "------------------------\n";
     std::cout << "Квартиры:\n";
-    if (flats.size() == 0) std::cout << "Квартир не найдено\n";
+    bool found = false;
     for (int i = 0; i < flats.size(); ++i) {
         if (flats[i].get_status_free()) {
             flats[i].print_info();
-            std::cout << "\n";
+            found = true;
         }
     }
+    if (!found) std::cout << "Квартир не найдено\n";
 
     std::cout << "\nАпартаменты:\n";
-    if (appatments.size() == 0) std::cout << "Апартаментов не найдено\n";
+    found = false;
     for (int i = 0; i < appatments.size(); ++i) {
         if (appatments[i].get_status_free()) {
             appatments[i].print_info();
-            std::cout << "\n";
+            found = true;
         }
     }
+    if (!found) std::cout << "Апартаменты не найдены\n";
 
     std::cout << "\nКоттеджи:\n";
-    if (cottages.size() == 0) std::cout << "Коттеджей не найдено\n";
+    found = false;
     for (int i = 0; i < cottages.size(); ++i) {
         if (cottages[i].get_status_free()) {
             cottages[i].print_info();
-            std::cout << "\n";
+            found = true;
         }
     }
+    if (!found) std::cout << "Коттеджей не найдено\n";
+    std::cout << "------------------------\n";
 }
