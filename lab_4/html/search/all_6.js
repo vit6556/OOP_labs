@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['shelter_18',['Shelter',['../classhouses_1_1_shelter.html',1,'houses']]]
+  ['room_22',['Room',['../classhouses_1_1_room.html',1,'houses']]]
 ];
