@@ -36,7 +36,7 @@ namespace table {
             /*!
             Обновить занятость квартиры по адресу
             */
-            void update_status(std::string address);
+            void update_status(std::string address, bool status);
     };
 }
 

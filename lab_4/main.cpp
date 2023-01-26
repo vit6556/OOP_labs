@@ -26,8 +26,11 @@ int main() {
     Flat f = Flat(std::string("ул. Лужники, 23"), 4, rooms_2);
 
     table::Table t;
-    t.add_cottage(true, 20000, c);
+    t.add_cottage(false, 20000, c);
     t.add_flat(true, 10000, f);
     t.find_by_address(std::string("ул. Лужники, 24"));
+    t.show_all_shelters();
+
+    t.update_status(std::string("ул. Лужники, 24"), true);
     t.show_all_shelters();
 }

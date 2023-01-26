@@ -56,7 +56,7 @@ void Table::find_by_address(std::string address) {
 }
 
 void Table::update_status(std::string address, bool status) {
-    for (int i = 0; i < flats.size() ++i) {
+    for (int i = 0; i < flats.size(); ++i) {
         if (flats[i].get_address() == address) {
             flats[i].update_status(status);
             return;
