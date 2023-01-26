@@ -1,155 +1,175 @@
 #include <gtest/gtest.h>
-#include <vector>
 #include <diagram.h>
 
+using namespace diagram;
+
 TEST(Constructor, default_values) {
-    diagram::Diagram d;
-    std::vector<diagram::signal> v1;
+    Diagram *d = new Diagram();
+    diagram::signal *v1 = new diagram::signal[10];
     for (int i = 0; i < 10; ++i)
-        v1.push_back(diagram::signal{'0', 1});
+        v1[i] = diagram::signal{'0', 1};
 
-    std::vector<diagram::signal> v2 = d.get_signals();
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 10);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 10; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Constructor, const_values) {
-    diagram::Diagram d(20, '1', 2);
-    std::vector<diagram::signal> v1;
+    Diagram *d = new Diagram(20, '1', 2);
+    diagram::signal *v1 = new diagram::signal[20];
     for (int i = 0; i < 20; ++i)
-        v1.push_back(diagram::signal{'1', 2});
+        v1[i] = diagram::signal{'1', 2};
 
-    std::vector<diagram::signal> v2 = d.get_signals();
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 20);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 20; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Constructor, ascii_values) {
-    diagram::Diagram d(5, "01XX1", 2);
-    std::vector<diagram::signal> v1;
-    
-    v1.push_back(diagram::signal{'0', 2});
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'1', 2});
+    Diagram *d = new Diagram(5, "01XX1", 2);
+    diagram::signal *v1 = new diagram::signal[5];
+    v1[0] = diagram::signal{'0', 2};
+    v1[1] = diagram::signal{'1', 2};
+    v1[2] = diagram::signal{'X', 2};
+    v1[3] = diagram::signal{'X', 2};
+    v1[4] = diagram::signal{'1', 2};
 
-    std::vector<diagram::signal> v2 = d.get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    diagram::signal *v2 = d->get_signals();
 
-    for (int i = 0; i < v1.size(); ++i) {
+    ASSERT_EQ(d->get_length(), 5);
+
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Methods, get_signals) {
-    diagram::Diagram d(5, '1', 20);
-    std::vector<diagram::signal> v1;
+    Diagram *d = new Diagram(5, '1', 20);
+    diagram::signal *v1 = new diagram::signal[5];
     for (int i = 0; i < 5; ++i)
-        v1.push_back(diagram::signal{'1', 20});
+        v1[i] = diagram::signal{'1', 20};
 
-    std::vector<diagram::signal> v2 = d.get_signals();
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 5);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Methods, copy) {
-    diagram::Diagram d(5, '1', 2);
-    std::vector<diagram::signal> v1;
+    Diagram *d = new Diagram(5, '1', 20);
+    diagram::signal *v1 = new diagram::signal[10];
     for (int i = 0; i < 10; ++i)
-        v1.push_back(diagram::signal{'1', 2});
+        v1[i] = diagram::signal{'1', 20};
 
-    d.copy(1);
-    std::vector<diagram::signal> v2 = d.get_signals();
+    d->copy(1);
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 10);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 10; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Methods, rotate_left) {
-    diagram::Diagram d(5, "01XX1", 2);
-    std::vector<diagram::signal> v1;
-    
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'0', 2});
+    Diagram *d = new Diagram(5, "01XX1", 2);
+    diagram::signal *v1 = new diagram::signal[5];
+    v1[0] = diagram::signal{'1', 2};
+    v1[1] = diagram::signal{'X', 2};
+    v1[2] = diagram::signal{'X', 2};
+    v1[3] = diagram::signal{'1', 2};
+    v1[4] = diagram::signal{'0', 2};
 
-    d.rotate_left(1);
-    std::vector<diagram::signal> v2 = d.get_signals();
+    d->rotate_left(1);
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 5);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
-
 TEST(Methods, rotate_right) {
-    diagram::Diagram d(5, "01XX1", 2);
-    std::vector<diagram::signal> v1;
-    
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'0', 2});
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'X', 2});
+    Diagram *d = new Diagram(5, "01XX1", 2);
+    diagram::signal *v1 = new diagram::signal[5];
+    v1[0] = diagram::signal{'1', 2};
+    v1[1] = diagram::signal{'0', 2};
+    v1[2] = diagram::signal{'1', 2};
+    v1[3] = diagram::signal{'X', 2};
+    v1[4] = diagram::signal{'X', 2};
 
-    d.rotate_right(1);
-    std::vector<diagram::signal> v2 = d.get_signals();
+    d->rotate_right(1);
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 5);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 TEST(Methods, update_signal) {
-    diagram::Diagram d(5, "01XX1", 2);
-    std::vector<diagram::signal> v1;
-    
-    
-    v1.push_back(diagram::signal{'0', 2});
-    v1.push_back(diagram::signal{'1', 2});
-    v1.push_back(diagram::signal{'0', 3});
-    v1.push_back(diagram::signal{'X', 2});
-    v1.push_back(diagram::signal{'1', 2});
+    Diagram *d = new Diagram(5, "01XX1", 2);
+    diagram::signal *v1 = new diagram::signal[5];
+    v1[0] = diagram::signal{'0', 2};
+    v1[1] = diagram::signal{'1', 2};
+    v1[2] = diagram::signal{'0', 3};
+    v1[3] = diagram::signal{'X', 2};
+    v1[4] = diagram::signal{'1', 2};
 
-    d.update_signal(2, '0', 3);
-    std::vector<diagram::signal> v2 = d.get_signals();
+    d->update_signal(2, '0', 3);
+    diagram::signal *v2 = d->get_signals();
 
-    ASSERT_EQ(v1.size(), v2.size());
+    ASSERT_EQ(d->get_length(), 5);
 
-    for (int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < 5; ++i) {
         ASSERT_EQ(v1[i].length, v2[i].length);
         ASSERT_EQ(v1[i].value, v2[i].value);
     }
+
+    delete d;
+    delete v1;
 }
 
 int main(int argc, char **argv) {

@@ -5,7 +5,10 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 17)
+enable_testing()
+
 add_subdirectory(libraries)
+add_subdirectory(tests)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
