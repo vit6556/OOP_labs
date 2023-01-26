@@ -10,19 +10,22 @@ namespace diagram {
 
     class Diagram {
         private:
-            std::vector<signal> signals;
+            int length = 10;
+            signal *signals;
         public:
             Diagram();
             Diagram(int length, char value, int max_signal_length);
             Diagram(int length, std::string values, int max_signal_length);
-            Diagram(int length, std::vector<signal>);
+            Diagram(int length, signal *value);
+            ~Diagram();
             void copy(int amount);
             void print();
             void rotate_left(int amount);
             void rotate_right(int amount);
             void update_signal(int index, char value, int length);
-            std::vector<signal> get_signals();
-            Diagram operator + (Diagram d);
+            signal *get_signals();
+            int get_length();
+            Diagram* operator + (Diagram *d);
     };
 }
 #endif //DIAGRAM_H
